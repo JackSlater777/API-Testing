@@ -18,7 +18,7 @@ from configuration import SERVICE_URL
 
 from src.baseclasses.response import Response
 # from src.schemas.post import POST_SCHEMA  # json-schema
-from src.pydantic_schemas.post import Post  # pydantic-schema
+from src.schemas.post import Post  # pydantic-schema
 
 
 def test_getting_posts():

@@ -19,11 +19,18 @@ from src.schemas.computer import Computer
 from examples import computer
 
 
-# Тесты для компьютера
 def test_pydantic_object():
+    """
+    Пример того, как после инициализации pydantic объекта, можно получить
+    доступ к любому из его параметров.
+    Example for case, when after initialization your JSON as a pydantic object
+    you can get access to all parameters.
+    """
     # Получаем спаршенный объект (прописан в методе baseclasses/response_2/validate)
     comp = Computer.parse_obj(computer)
     # Выводим фото
     print(comp.detailed_info.physical.photo)
     # Выводим хост
     print(comp.detailed_info.physical.photo.host)
+    # Выводим цвет
+    print(comp.detailed_info.physical.color)

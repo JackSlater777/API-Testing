@@ -1,8 +1,10 @@
-# Генерируем пользователя (игрока) через билдер (класс с определенными значениями) для тестов
 from src.enums.user_enums import Statuses
 from src.generators.player_localisation import PlayerLocalisation
 from src.baseclasses.builder import BuilderBaseClass
 
+
+# Генерируем пользователя (игрока) через билдер (класс с определенными значениями)
+# для тестов
 
 # Структура текущего пользователя (json):
 # player = {

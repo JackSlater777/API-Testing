@@ -14,11 +14,15 @@ class Response:
     def validate(self, schema):
         if isinstance(self.response_json, list):
             for item in self.response_json:
-                schema.parse_obj(item)  # для pydantic
-                # validate(item, schema)  # для jsonschema
+                # для pydantic
+                schema.parse_obj(item)
+                # для jsonschema
+                # validate(item, schema)
         else:
-            schema.parse_obj(self.response_json)  # для pydantic
-            # validate(self.response_json, schema)  # для jsonschema
+            # для pydantic
+            schema.parse_obj(self.response_json)
+            # для jsonschema
+            # validate(self.response_json, schema)
         return self
 
     # Проверка статуса кода
