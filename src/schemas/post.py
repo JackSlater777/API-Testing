@@ -3,6 +3,9 @@ from pydantic import validator
 # from pydantic import Field
 
 
+# Schema: {'id': 1, 'title': 'Post 1'}
+
+
 class Post(BaseModel):
     id: int
     # id: int = Field(le=2)  # Позволяет удалить валидатор под декоратором, см. метод Field
@@ -17,6 +20,3 @@ class Post(BaseModel):
             raise ValueError('id is not less than two')
         else:
             return v
-
-
-# {'id': 1, 'title': 'Post 1'}
