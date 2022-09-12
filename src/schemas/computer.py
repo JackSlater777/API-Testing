@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from pydantic import ValidationError
+from pydantic import validator
 from pydantic import EmailStr  # Проверяет email
 from pydantic.types import PastDate, FutureDate  # Проверяют дату (больше или меньше текущей)
 from pydantic.types import PaymentCardNumber  # Проверяет номер карточки алгоритмом Luna
@@ -21,6 +22,15 @@ class Owners(BaseModel):
     name: str
     card_number: PaymentCardNumber
     email: EmailStr
+
+    @validator('email')
+    # Проверяем наше поле email, что в нём присутствует @ и в случае
+    # если она отсутствует, возвращаем ошибку.
+    # Checking fild email that in the filed contain @ and if it absent returns
+    # error, if not pass.
+    def check_that_dog_presented_in_email_adress(cls, email: str):
+        if '@' not in email:
+            raise ValueError("Email doesn't contain @")
 
 
 class DetailedInfo(BaseModel):
