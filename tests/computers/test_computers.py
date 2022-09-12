@@ -16,7 +16,7 @@
 # import pytest
 # from src.baseclasses.response_2 import Response
 from src.schemas.computer import Computer
-from examples import computer
+from example_computer import computer
 
 
 def test_pydantic_object():
