@@ -78,8 +78,8 @@ def get_db_session():
     """
     Создание сессии для работы с базой данных.
     Пожалуйста, обратите внимание, что мы в любом случае закрываем нашу сессию.
-    Creating of database session and return it into our autotest.
-    Please check, that in any case, we close our db session.
+    Creating the database session and return it into our autotest.
+    Please check, in any case, we close our db session.
     """
     session = Session()
     try:
