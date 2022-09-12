@@ -1,9 +1,9 @@
 from pydantic import BaseModel, validator
 from src.enums.user_enums import Genders, Statuses, UserErrors
 
+
 # Пример описания pydantic model с использованием Enum и validator.
 # Example of describing pydantic model with using ENUM and validator features.
-
 
 class User(BaseModel):
     id: int

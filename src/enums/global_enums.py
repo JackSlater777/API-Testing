@@ -9,9 +9,9 @@ class GlobalErrorMessages(Enum):
     # 2. Облегчить использование и обновление ошибок
 
     # Default ENUM class with error that should be used in your asserts and in
-    # Response class. It needs for:
-    # 1. Unification
-    # 2. Helps in code support
+    # Response class. It helps with:
+    # 1. unification
+    # 2. code support
 
     WRONG_STATUS_CODE = "Received status code is not equal to expected."
     WRONG_ELEMENT_COUNT = "Number of items is not equal to expected."
