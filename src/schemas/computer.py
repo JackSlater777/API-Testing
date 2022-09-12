@@ -46,3 +46,7 @@ else:
     print(comp)
     print(comp.schema_json())  # Генерируем json-схему
     print(comp.json())  # Генерируем json-файл
+
+    print(comp.json(
+        exclude={"status"}  # Синтаксис для вывода json без определенных атрибутов
+    ))
