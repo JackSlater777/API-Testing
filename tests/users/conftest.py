@@ -1,7 +1,6 @@
-# Описываем фикстуры для тестирования
 import pytest
 import requests
-from configuration import SERVICE_URL_2
+from configuration import SERVICE_URL
 
 
 # scope='function' - по умолчанию - фикстура выполняется каждый тест кейс
@@ -20,5 +19,5 @@ def get_users():
     one random from them. So for that case fetching data using fixtures is a
     best solution.
     """
-    response = requests.get(SERVICE_URL_2)
+    response = requests.get(SERVICE_URL)
     return response

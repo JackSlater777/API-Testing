@@ -1,6 +1,3 @@
-# Тестируем:
-# https://gorest.co.in/public/v1/users
-
 # Запуск через терминал
 # pytest -s -v tests/users/test_users.py
 # -v - более детальный принт результата теста
@@ -14,10 +11,13 @@
 # allure serve results
 
 import pytest
-from src.generators.player_localisation import PlayerLocalisation
-from src.baseclasses.response_2 import Response
+from src.generators.player_localization import PlayerLocalization
+from src.baseclasses.response import Response
 from src.schemas.user import User
 from src.enums.user_enums import Statuses
+from src.schemas.computer import Computer
+
+from examples import computer
 
 
 def test_getting_users_list(get_users, make_number, calculate):
@@ -81,37 +81,36 @@ def test_calculator(first_value, second_value, result, calculate):
     assert calculate(first_value, second_value) == result
 
 
-# Тестируем баланс сгенерированных пользователей
 @pytest.mark.parametrize('balance_value', [
     "100",
     "0",
     "-10",
     "asd"
 ])
-def test_something1(balance_value, get_player_generator):
+def test_balance(balance_value, get_player_generator):
+    """
+    Тестируем баланс сгенерированных пользователей
+    """
     print(get_player_generator.set_balance(balance_value).build())
 
 
-# Тестируем статус сгенерированных пользователей (см. Enums)
-#     Играемся с генератором, который был получен с помощью фикстуры.
-#     Вы можете попробовать изменить значение, написать новые методы и посмотреть
-#     как он будет реагировать.
-
-#     Playing with generator, that we received from fixture.
-#     Here you can change values, write some new useful methods and check how
-#     will it work.
 @pytest.mark.parametrize('status', [
     *Statuses.list()
 ])
 # или @pytest.mark.parametrize('status', Statuses.list())
-def test_something2(status, get_player_generator):
+def test_status(status, get_player_generator):
+    """
+    Тестируем статус сгенерированных пользователей (см. Enums)
+    Играемся с генератором, который был получен с помощью фикстуры.
+    Вы можете попробовать изменить значение, написать новые методы и посмотреть
+    как он будет реагировать.
+    Playing with generator, that we received from fixture.
+    Here you can change values, write some new useful methods and check how
+    it works.
+    """
     print(get_player_generator.set_status(status).build())
 
 
-# Удаляем по одному свойству у пользователя и смотрим реакцию backend'a
-#     Пример того, как мы в определённом порядке удаляем каждое поле в объекте,
-#     который нам вернул генератор.
-#     Example of case when we delete one by one keys in received object.
 @pytest.mark.parametrize('delete_key', [
     "account_status",
     "balance",
@@ -119,24 +118,43 @@ def test_something2(status, get_player_generator):
     "avatar"
 ])
 def test_something3(delete_key, get_player_generator):
+    """
+    Удаляем по одному свойству у пользователя и смотрим реакцию backend'a
+    Пример того, как мы в определённом порядке удаляем каждое поле в объекте,
+    который нам вернул генератор.
+    Example of case when we delete one by one keys in received object.
+    """
     object_to_send = get_player_generator.build()
     del object_to_send[delete_key]
     print(object_to_send)
 
 
-# Тестируем обновление одного поля - локализации (с вложенностями)
-#     В этом примере мы получаем 2 генератора, один базовый и один - ниже
-#     уровнем. Когда мы получили их, изменяем в генераторе локализацию, создаём
-#     экземпляр и обновляем им наш главный объект.
-#     In the test we receive two generators, first is main and second is included
-#     into first. We change localization in generator and update main using
-#     instance of second.
 @pytest.mark.parametrize("localisations, loc", [
     ("fr", "fr_FR")
 ])
 def test_something4(get_player_generator, localisations, loc):
+    """
+    Тестируем обновление одного поля - локализации (с вложенностями).
+    В этом примере мы получаем 2 генератора, один базовый и один - ниже
+    уровнем. Когда мы получили их, изменяем в генераторе локализацию, создаём
+    экземпляр и обновляем им наш главный объект.
+    In the test we receive two generators, first is main and second is included
+    into first. We change localization in generator and update main using
+    instance of second.
+    """
     object_to_send = get_player_generator.update_inner_value(
         ["localize", localisations],
-        PlayerLocalisation(loc).set_number(15).build()
+        PlayerLocalization(loc).set_number(15).build()
     ).build()
     print(object_to_send)
+
+
+def test_pydantic_object():
+    """
+    Пример того, как после инициализации pydantic объекта, можно получить
+    доступ к любому из его параметров.
+    Example for case, when after initialization your JSON as a pydantic object
+    you can get access to all parameters.
+    """
+    comp = Computer.parse_obj(computer)
+    print(comp.detailed_info.physical.color)

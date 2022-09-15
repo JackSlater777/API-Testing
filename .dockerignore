@@ -1,0 +1,8 @@
+# Venv
+venv/
+# README
+*.md
+# Pycache
+__pycache__
+# env-файлы
+env

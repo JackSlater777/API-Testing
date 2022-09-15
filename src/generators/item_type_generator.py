@@ -6,8 +6,6 @@ fake = Faker()
 
 
 # Генератор случайных итемов для базы данных
-
-
 class ItemsTypeBuilder(BuilderBaseClass):
     def __init__(self):
         super().__init__()

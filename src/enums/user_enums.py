@@ -12,15 +12,19 @@ from src.baseclasses.pyenum import PyEnum
 
 
 class Genders(Enum):
-    # Класс для хранения пола пользователя.
-    # Example of gender enum.
+    """
+    Класс для хранения пола пользователя.
+    Example of gender enum.
+    """
     female = 'female'
     male = 'male'
 
 
 class Statuses(PyEnum):
-    # Вариант хранения всех возможных статусов пользователя.
-    # Example of status enums.
+    """
+    Вариант хранения всех возможных статусов пользователя.
+    Example of status enums.
+    """
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
     DELETED = "DELETED"
@@ -29,7 +33,9 @@ class Statuses(PyEnum):
 
 
 class UserErrors(Enum):
-    # Enum с кастомными ошибками для какого-то конкретной сущности или
-    # тестируемого ендпоинта.
-    # Enum with custom errors, for some difficult cases or testing endpoint.
+    """
+    Enum с кастомными ошибками для какого-то конкретной сущности или
+    тестируемого ендпоинта.
+    Enum with custom errors, for some difficult cases or testing endpoint.
+    """
     WRONG_EMAIL = "Email doesn't contain @"

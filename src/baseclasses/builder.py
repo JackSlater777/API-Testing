@@ -1,12 +1,12 @@
 # Универсальный генератор со вложенностями
 
 class BuilderBaseClass:
-
-    # Базовый класс для билдера. Вы его можете дополнить ещё другими полезными
-    # методами, сейчас представлен только один.
-    # Base class for builder. You can add additional useful methods, but for now
-    # it has only one.
-
+    """
+    Базовый класс для билдера. Вы его можете дополнить ещё другими полезными
+    методами, сейчас представлен только один.
+    Base class for builder. You can add additional useful methods, but for now
+    it has only one.
+    """
     # Пустой json
     def __init__(self):
         self.result = {}
@@ -18,6 +18,12 @@ class BuilderBaseClass:
     # The method helps us update and add new values into object on specified
     # level.
     def update_inner_value(self, keys, value):
+        """
+        Этот метод помогает обновить/добавить новое значение в объекте на
+        указанном вами уровне.
+        The method helps us update and add new values into object on specified
+        level.
+        """
         # Если значение не массив - обновляем (для обновления верхнего уровня)
         if not isinstance(keys, list):
             self.result[keys] = value

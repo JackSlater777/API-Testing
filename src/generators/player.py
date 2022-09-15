@@ -1,5 +1,5 @@
 from src.enums.user_enums import Statuses
-from src.generators.player_localisation import PlayerLocalisation
+from src.generators.player_localization import PlayerLocalization
 from src.baseclasses.builder import BuilderBaseClass
 
 
@@ -22,7 +22,7 @@ class Player(BuilderBaseClass):
     # Пустой json
     def __init__(self):
         # Наследуемся от общего билдер-класса
-        super(Player, self).__init__()
+        super().__init__()
         # Наполнение полей по умолчанию прямо в конструкторе
         self.reset()
 
@@ -48,16 +48,10 @@ class Player(BuilderBaseClass):
         self.set_avatar()
         self.result["localize"] = {
                 # Срандомленные Faker'ом данные
-                'en': PlayerLocalisation('en_US').build(),
-                'ru': PlayerLocalisation('ru_RU').build()
+                'en': PlayerLocalization('en_US').build(),
+                'ru': PlayerLocalization('ru_RU').build()
         }
         return self
-
-    # Замена значения выборному ключу (подойдет даже для глубоко вложенных)
-    # см. parent BuilderBasClass
-
-    # Стоппер - возвращаем сгенерированного пользователя
-    # см. parent BuilderBasClass
 
 
 # p = Player().build()
