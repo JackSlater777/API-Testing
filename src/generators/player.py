@@ -54,5 +54,6 @@ class Player(BuilderBaseClass):
         return self
 
 
-# p = Player().build()
-# print(p)
+if __name__ == '__main__':
+    p = Player().build()
+    print(p)

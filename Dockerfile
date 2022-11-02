@@ -36,15 +36,15 @@ COPY . .
 CMD pytest -m "$env" -s -v tests/* --alluredir=allureResults
 
 
-#Эту команду мы запускаем чтобы собрать наш контейнер
-#docker build --build-arg env=development -t tests .
+# Эту команду мы запускаем чтобы собрать наш контейнер
+# docker build --build-arg env=development -t tests .
 
-#Эта команда нужна чтобы запустить наш созданый контейнер
-#docker run tests
+# Эта команда нужна чтобы запустить наш созданый контейнер
+# docker run tests
 
-#Эти 2 команды нам нужны чтобы скопировать данные из контейнера и чтобы сгенерировать из результата репорт
-#docker cp $(docker ps -a -q | head -1):/usr/lessons/allureResults .
-#allure serve allureResults/
-#Две команды ниже, помогут вам в эксперементах, чтобы после них почистить свой компьютер
-#docker rm $(docker ps -a -q)
-#docker kill $(docker ps -q)
+# Эти 2 команды нам нужны чтобы скопировать данные из контейнера и чтобы сгенерировать из результата репорт
+# docker cp $(docker ps -a -q | head -1):/usr/lessons/allureResults .
+# allure serve allureResults/
+# Две команды ниже, помогут вам в эксперементах, чтобы после них почистить свой компьютер
+# docker rm $(docker ps -a -q)
+# docker kill $(docker ps -q)

@@ -42,6 +42,6 @@ class BuilderBaseClass:
         return self
 
     # Стоппер - возвращаем сгенерированного пользователя
-    # см. parent BuilderBasClass
+    # см. parent BuilderBaseClass
     def build(self):
         return self.result

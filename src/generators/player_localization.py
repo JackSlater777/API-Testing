@@ -37,3 +37,10 @@ class PlayerLocalization:
         Returns object as JSON.
         """
         return self.result
+
+
+if __name__ == '__main__':
+    rus = PlayerLocalization('ru').build()
+    print(rus)
+    eng = PlayerLocalization('en').build()
+    print(eng)

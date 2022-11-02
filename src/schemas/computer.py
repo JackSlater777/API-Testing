@@ -66,13 +66,6 @@ class Human(BaseModel):
         return hide_value
 
 
-human = Human.parse_obj({
-    "name": "Andrii",
-    "last_name": "Shevchenko",
-    "is_hide": True
-})
-
-
 class Inventory(BaseModel):
     sold: int
     string: int
@@ -84,15 +77,25 @@ class Inventory(BaseModel):
     status: int
 
 
-try:
-    comp = Computer.parse_obj(computer)
-except ValidationError as e:
-    print("Exception", e.json())
-else:
-    print(comp)
-    print(comp.schema_json())  # Генерируем json-схему
-    print(comp.json())  # Генерируем json-файл
-
-    print(comp.json(
-        exclude={"status"}  # Синтаксис для вывода json без определенных атрибутов
-    ))
+if __name__ == '__main__':
+    try:
+        # Парсим по соответствующей pydantic-схеме простенький json пользователя
+        human = Human.parse_obj(
+            {
+                "name": "Andrii",
+                "last_name": "Shevchenko",
+                "is_hide": True
+            }
+        )
+        # Парсим по соответствующей pydantic-схеме json компьютера (см. examples.py)
+        comp = Computer.parse_obj(computer)
+    except ValidationError as e:
+        print("Exception", e.json())
+    else:
+        print(f'{human=}')
+        print(f'{human.schema_json()=}')  # Генерируем json-схему
+        print(f'{human.json()=}')  # Генерируем json-файл
+        print(f'{comp=}')
+        print(f'{comp.schema_json()=}')  # Генерируем json-схему
+        print(f'{comp.json()=}')  # Генерируем json-файл
+        print(f'{comp.json(exclude={"status"})=}')  # Синтаксис для вывода json без определенных атрибутов

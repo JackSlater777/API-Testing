@@ -64,13 +64,15 @@ result10 = session.query(
     tables.Films.title
 ).ordered_by(tables.Films.film_id).limit(1).offset(1).all()
 
-# print(result)
-# print(result2)
-# print(result3)
-# print(result4)
-# print(result5)
-# print(result6)
-# print(result7)
-# print(result8)
-# print(result9)
-# print(result10)
+
+if __name__ == '__main__':
+    print(result)
+    print(result2)
+    print(result3)
+    print(result4)
+    print(result5)
+    print(result6)
+    print(result7)
+    print(result8)
+    print(result9)
+    print(result10)

@@ -7,8 +7,8 @@ class Response:
     валидации данных. На вход он принимает объект респонса и разбирает его.
     Вы можете добавить кучу различных методов в этом классе, которые нужны
     вам в работе с данными после их получения.
-    It's useful class that helps to save a lot of code during validation
-    process in our tests. It receives response object and gets from it all
+    It's a useful class that helps to save a lot of code during validation
+    process in our tests. It receives a response object and gets from it all
     values that should be validated. You can add additional methods into the
     Class if it needs for your project testing.
     """

@@ -21,3 +21,8 @@ class ItemsTypeBuilder(BuilderBaseClass):
 
     def build(self):
         return self.result
+
+
+if __name__ == '__main__':
+    item = ItemsTypeBuilder().build()
+    print(item)
