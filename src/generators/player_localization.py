@@ -1,19 +1,15 @@
 from faker import Faker  # Модуль для генерации имен, адресов, картинок и т.д.
 
 
-# Генерируем вложенный атрибут объекта
-# Пример описания билдера для локализации.
-# Example of declaration for localization builder.
 class PlayerLocalization:
     def __init__(self, lang):
         """
+        Генерируем вложенный атрибут объекта
+        Пример описания билдера для локализации.
         В зависимости от того, какой язык будет передан в этот билдер, на таком
         языке и будет работать наш фейкер. Дальше, дело за малым, объект будет
         наполнен точно так же, как и другие подобные объекты, только каждый на
         своём языке.
-        Example of customizing low level builder. According to received lang,
-        values in builder will be populated on the set language without any
-        changes in logic of populating.
         """
         self.fake = Faker(lang)
         self.result = {
@@ -25,8 +21,6 @@ class PlayerLocalization:
         Добавляет в результат ключ number, для которого будет использовано
         переданное значение, если же такое отсутствует, то используем значение
         11 по-умолчанию.
-        Method adds into result key "number" with value that has been received
-        from user, if not, we will set default that equal to 11.
         """
         self.result['number'] = number
         return self
@@ -34,7 +28,6 @@ class PlayerLocalization:
     def build(self):
         """
         Возвращает наш обьект в виде JSON.
-        Returns object as JSON.
         """
         return self.result
 

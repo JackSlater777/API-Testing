@@ -5,8 +5,10 @@ from faker import Faker
 fake = Faker()
 
 
-# Генератор случайных итемов для базы данных
 class ItemsTypeBuilder(BuilderBaseClass):
+    """
+    Генератор случайных итемов для базы данных
+    """
     def __init__(self):
         super().__init__()
         self.result = {}

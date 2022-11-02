@@ -6,17 +6,17 @@ from pydantic.types import PastDate, FutureDate  # Проверяют дату (
 from pydantic.types import PaymentCardNumber  # Проверяет номер карточки алгоритмом Luna
 from pydantic.networks import IPv4Address, IPv6Address  # Проверяют IP
 from src.enums.user_enums import Statuses
-from src.schemas.physical import Physical
+from pydantic import HttpUrl  # Проверяет Url на валидность
+from pydantic import UUID4
+from pydantic.color import Color
 
 # Именно в этом файле можно поиграться с уже готовой моделью и примером
 # тестового объекта для неё
-
-from examples import computer  # То, что тестируем
+from example_computers import computer  # То, что тестируем
 
 
 # Создаем классы для каждой вложенности (матрёшку)
 # В каждом классе можно дополнительно прописывать валидацию с помощью @validator
-
 class Owners(BaseModel):
     name: str
     card_number: PaymentCardNumber
@@ -30,6 +30,12 @@ class Owners(BaseModel):
     def check_that_dog_presented_in_email_adress(cls, email: str):
         if '@' not in email:
             raise ValueError("Email doesn't contain @")
+
+
+class Physical(BaseModel):
+    color: Color
+    photo: HttpUrl
+    uuid: UUID4
 
 
 class DetailedInfo(BaseModel):
@@ -86,7 +92,7 @@ if __name__ == '__main__':
                 "is_hide": True
             }
         )
-        # Парсим по соответствующей pydantic-схеме json компьютера (см. examples.py)
+        # Парсим по соответствующей pydantic-схеме json компьютера (см. example_computers.py)
         comp = Computer.parse_obj(computer)
     except ValidationError as e:
         print("Exception", e.json())

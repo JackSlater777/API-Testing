@@ -16,24 +16,21 @@ from src.baseclasses.response import Response
 from src.schemas.user import TestUser
 from src.enums.user_enums import Statuses
 from src.schemas.computer import Computer
-from examples import computer
+from example_computers import computer
 
 
-def test_getting_users_list(get_users, make_number, calculate):
+def test_getting_users(get_users, make_number, calculate):
     """
     Пример использования фикстуры которая отправляет запрос и возвращает
     респонс. Далее мы просто обрабатываем его с помощью нашего Response class
     применяя все доступные валидации.
-    Example of using fixture that requesting server and returns raw response
-    object. After it we put that data into our response class and accept all
-    possible validation methods.
     """
     # Запрос даты (убран в фикстуру)
     # response = requests.get(SERVICE_URL_2)
-
     # Прогоняем через класс (методы описаны в классе Response)
-    # Ассертим статус кода и валидэйтим юзера
-    Response(get_users).assert_status_code(200).validate(TestUser)
+    # Response(get_users).assert_status_code(200).validate(TestUser)
+    Response(get_users).assert_status_code(200)
+    Response(get_users).validate(TestUser)
     # Выполняем глобальную фикстуру
     print(calculate(1, 1))
     # Выводим yield глобальной фикстуры
@@ -43,7 +40,7 @@ def test_getting_users_list(get_users, make_number, calculate):
 @pytest.mark.development
 @pytest.mark.production
 @pytest.mark.skip('[ISSUE-23414] Issue with network connection')
-def test_another():
+def test_decorators():
     """
     Запуск через терминал тестов, замаркированных только маркером 'development':
     pytest -s -v -k development tests/users/test_users.py
@@ -55,91 +52,84 @@ def test_another():
     Обычный тест, но не совсем. Обратите внимание на декораторы к нему.
     Мы скипаем его с определённым сообщением, а так же помечаем с каким скоупом
     его выполнять.
-    It is just common test. Please check decorators of the test. Here is you
-    can find decorator for skip test with some message and useful tags for
-    case when you need to run some scope of tests.
     """
     assert 1 == 1
 
 
 @pytest.mark.development
-@pytest.mark.parametrize('first_value, second_value, result', [
-    (1, 2, 3),
-    (-1, -2, -3),
-    (-1, 2, 1),
-    ('b', -2, None),
-    ('b', 'b', None)
-])
+@pytest.mark.parametrize('first_value, second_value, result',
+                         [
+                             (1, 2, 3),
+                             (-1, -2, -3),
+                             (-1, 2, 1),
+                             ('b', -2, None),
+                             ('b', 'b', None)
+                         ])
 def test_calculator(first_value, second_value, result, calculate):
     """
     Вариант параметризации нашего теста, с несколькими параметрами за один
     раз.
-    Example of parametrization, when during one iteration should be passed
-    more than one value.
     """
     assert calculate(first_value, second_value) == result
 
 
-@pytest.mark.parametrize('balance_value', [
-    "100",
-    "0",
-    "-10",
-    "asd"
-])
-def test_balance(balance_value, get_player_generator):
+@pytest.mark.parametrize('balance_value',
+                         [
+                             "100",
+                             "0",
+                             "-10",
+                             "asd"
+                         ])
+def test_user_balance(balance_value, get_player_generator):
     """
     Тестируем баланс сгенерированных пользователей
     """
     print(get_player_generator.set_balance(balance_value).build())
 
 
-@pytest.mark.parametrize('status', [
-    *Statuses.list()
-])
+@pytest.mark.parametrize('status',
+                         [
+                             *Statuses.list()
+                         ])
 # или @pytest.mark.parametrize('status', Statuses.list())
-def test_status(status, get_player_generator):
+def test_user_status(status, get_player_generator):
     """
-    Тестируем статус сгенерированных пользователей (см. Enums)
+    Тестируем статус сгенерированных пользователей (см. Enums).
     Играемся с генератором, который был получен с помощью фикстуры.
     Вы можете попробовать изменить значение, написать новые методы и посмотреть
     как он будет реагировать.
-    Playing with generator, that we received from fixture.
-    Here you can change values, write some new useful methods and check how
-    it works.
     """
     print(get_player_generator.set_status(status).build())
 
 
-@pytest.mark.parametrize('delete_key', [
-    "account_status",
-    "balance",
-    "localize",
-    "avatar"
-])
-def test_something3(delete_key, get_player_generator):
+@pytest.mark.parametrize('delete_key',
+                         [
+                             "account_status",
+                             "balance",
+                             "localize",
+                             "avatar"
+                         ])
+def test_delete_user_attr(delete_key, get_player_generator):
     """
-    Удаляем по одному свойству у пользователя и смотрим реакцию backend'a
+    Удаляем по одному свойству у пользователя и смотрим реакцию backend'a.
     Пример того, как мы в определённом порядке удаляем каждое поле в объекте,
     который нам вернул генератор.
-    Example of case when we delete one by one keys in received object.
     """
     object_to_send = get_player_generator.build()
     del object_to_send[delete_key]
     print(object_to_send)
 
 
-@pytest.mark.parametrize("localisations, loc", [
-    ("fr", "fr_FR")
-])
-def test_something4(get_player_generator, localisations, loc):
+@pytest.mark.parametrize("localisations, loc",
+                         [
+                             ("fr", "fr_FR")
+                         ])
+def test_update_user_localisation(get_player_generator, localisations, loc):
     """
     Тестируем обновление одного поля - локализации (с вложенностями).
     В этом примере мы получаем 2 генератора, один базовый и один - ниже
     уровнем. Когда мы получили их, изменяем в генераторе локализацию, создаём
     экземпляр и обновляем им наш главный объект.
-    In the test we receive two generators, first is main and second is included
-    into first. We change localization in generator and update main using
-    instance of second.
     """
     object_to_send = get_player_generator.update_inner_value(
         ["localize", localisations],
@@ -148,12 +138,10 @@ def test_something4(get_player_generator, localisations, loc):
     print(object_to_send)
 
 
-def test_pydantic_object():
+def test_pydantic_computer_object():
     """
     Пример того, как после инициализации pydantic объекта, можно получить
     доступ к любому из его параметров.
-    Example for case, when after initialization your JSON as a pydantic object
-    you can get access to all parameters.
     """
     comp = Computer.parse_obj(computer)
     print(comp.detailed_info.physical.color)

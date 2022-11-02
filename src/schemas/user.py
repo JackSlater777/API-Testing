@@ -3,16 +3,16 @@ from src.enums.user_enums import Genders, Statuses, Status, UserErrors
 from pydantic import EmailStr  # Проверяет email
 from pydantic.error_wrappers import ValidationError
 
-from example_users import response_body  # То, что тестируем
+from example_users import response_body  # То, что тестируем.
 # Это уже обработанный запрос, который можно получить так:
 # response = requests.get("https://gorest.co.in/public/v1/users").json()
 # print(response)
 
 
-# Пример описания pydantic model с использованием Enum и validator.
-# Example of describing pydantic model with using ENUM and validator features.
-
 class User(BaseModel):
+    """
+    Пример описания pydantic model с использованием Enum и validator.
+    """
     id: int  # Если параметр необязательный: id: int = None
     name: str
     email: str

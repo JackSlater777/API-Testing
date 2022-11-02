@@ -4,25 +4,18 @@ class BuilderBaseClass:
     """
     Базовый класс для билдера. Вы его можете дополнить ещё другими полезными
     методами, сейчас представлен только один.
-    Base class for builder. You can add additional useful methods, but for now
-    it has only one.
     """
-    # Пустой json
     def __init__(self):
+        """
+        Пустой json
+        """
         self.result = {}
 
-    # Замена значения выборному ключу (подойдет даже для глубоко вложенных)
-
-    # Этот метод помогает обновить/добавить новое значение в объекте на
-    # указанном вами уровне.
-    # The method helps us update and add new values into object on specified
-    # level.
     def update_inner_value(self, keys, value):
         """
+        Замена значения выборному ключу (подойдет даже для глубоко вложенных).
         Этот метод помогает обновить/добавить новое значение в объекте на
         указанном вами уровне.
-        The method helps us update and add new values into object on specified
-        level.
         """
         # Если значение не массив - обновляем (для обновления верхнего уровня)
         if not isinstance(keys, list):
@@ -41,7 +34,8 @@ class BuilderBaseClass:
             temp[keys[-1]] = value
         return self
 
-    # Стоппер - возвращаем сгенерированного пользователя
-    # см. parent BuilderBaseClass
     def build(self):
+        """
+        Стоппер - возвращаем сгенерированного пользователя.
+        """
         return self.result

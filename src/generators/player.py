@@ -3,10 +3,7 @@ from src.generators.player_localization import PlayerLocalization
 from src.baseclasses.builder import BuilderBaseClass
 
 
-# Генерируем пользователя (игрока) через билдер (класс с определенными значениями)
-# для тестов
-
-# Структура текущего пользователя (json):
+# Структура игрока (json):
 # player = {
 #     "account_status": "active",
 #     "balance": 10,
@@ -17,7 +14,8 @@ from src.baseclasses.builder import BuilderBaseClass
 #     "avatar": "https://google.com"
 # }
 
-
+# Генерируем пользователя (игрока) через билдер (класс с определенными значениями)
+# для тестов
 class Player(BuilderBaseClass):
     # Пустой json
     def __init__(self):
