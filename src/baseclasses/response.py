@@ -1,4 +1,7 @@
+import requests
 from pydantic.error_wrappers import ValidationError
+from configuration import SERVICE_URL
+from src.schemas.user import TestUser
 
 
 class Response:
@@ -28,6 +31,11 @@ class Response:
                 for item in self.response_json:
                     parsed_object = schema.parse_obj(item)
                     self.parsed_object = parsed_object
+            elif isinstance(self.response_json, dict):
+                if 'data' in self.response_json:
+                    for item in self.response_json['data']:
+                        parsed_object = schema.parse_obj(item)
+                        self.parsed_object = parsed_object
             else:
                 schema.parse_obj(self.response_json)
         except ValidationError:
@@ -54,7 +62,7 @@ class Response:
     def get_parsed_object(self):
         return self.parsed_object
 
-    # Строковое представление класса
+    # Строковое представление объекта
     def __str__(self):
         """
         Метод отвечает за строковое представление нашего объекта. Что весьма
@@ -69,3 +77,24 @@ class Response:
             f"\nStatus code: {self.response_status} \n" \
             f"Requested url: {self.response.url} \n" \
             f"Response body: {self.response_json}"
+
+
+if __name__ == '__main__':
+    response = Response(requests.get(SERVICE_URL))
+    # print(response)  # Выводится инфа методом __str__
+    print(type(response))  # <class '__main__.Response'>
+    print(type(response.response_json))  # <class 'dict'>
+    print("\n")
+    # Выводим словари с информацией о каждом пользователе
+    for user in response.response_json['data']:
+        print(f'{user=}')
+        try:
+            # Парсим по соответствующей pydantic-схеме простенький json пользователя
+            parsed_user = TestUser.parse_obj(user)
+        except ValidationError as e:
+            print("Exception", e.json())
+        else:
+            print(f'{parsed_user=}')
+            print(f'{parsed_user.schema_json()=}')  # Генерируем json-схему
+            print(f'{parsed_user.json()=}')  # Генерируем json-файл
+            print("\n")

@@ -32,6 +32,11 @@ class Statuses(PyEnum):
     MERGED = "MERGED"
 
 
+class Status(PyEnum):
+    ACTIVE = "active"
+    INACTIVE = "inactive"
+
+
 class UserErrors(Enum):
     """
     Enum с кастомными ошибками для какого-то конкретной сущности или

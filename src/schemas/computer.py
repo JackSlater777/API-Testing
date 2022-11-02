@@ -5,7 +5,6 @@ from pydantic import EmailStr  # Проверяет email
 from pydantic.types import PastDate, FutureDate  # Проверяют дату (больше или меньше текущей)
 from pydantic.types import PaymentCardNumber  # Проверяет номер карточки алгоритмом Luna
 from pydantic.networks import IPv4Address, IPv6Address  # Проверяют IP
-
 from src.enums.user_enums import Statuses
 from src.schemas.physical import Physical
 

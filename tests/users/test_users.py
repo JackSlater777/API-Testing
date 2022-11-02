@@ -13,10 +13,9 @@
 import pytest
 from src.generators.player_localization import PlayerLocalization
 from src.baseclasses.response import Response
-from src.schemas.user import User
+from src.schemas.user import TestUser
 from src.enums.user_enums import Statuses
 from src.schemas.computer import Computer
-
 from examples import computer
 
 
@@ -32,9 +31,9 @@ def test_getting_users_list(get_users, make_number, calculate):
     # Запрос даты (убран в фикстуру)
     # response = requests.get(SERVICE_URL_2)
 
-    # Прогоняем через класс
+    # Прогоняем через класс (методы описаны в классе Response)
     # Ассертим статус кода и валидэйтим юзера
-    Response(get_users).assert_status_code(200).validate(User)
+    Response(get_users).assert_status_code(200).validate(TestUser)
     # Выполняем глобальную фикстуру
     print(calculate(1, 1))
     # Выводим yield глобальной фикстуры
