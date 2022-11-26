@@ -1,0 +1,87 @@
+{
+    "data": [
+        {
+            "email": "aayushmaan_nayar_esq@bins-collins.co",
+            "gender": "male",
+            "id": 3025,
+            "name": "Aayushmaan Nayar Esq.",
+            "status": "inactive"
+        },
+        {
+            "email": "diptendu_deshpande_prof@boyle.io",
+            "gender": "male",
+            "id": 2966,
+            "name": "Prof. Diptendu Deshpande",
+            "status": "inactive"
+        },
+        {
+            "email": "chandravati_mehra@smitham-smith.name",
+            "gender": "female",
+            "id": 2963,
+            "name": "Chandravati Mehra",
+            "status": "inactive"
+        },
+        {
+            "email": "anandamayi_dutta_jd@maggio.name",
+            "gender": "male",
+            "id": 2925,
+            "name": "Anandamayi Dutta JD",
+            "status": "inactive"
+        },
+        {
+            "email": "bhisham_khan_do@gutkowski.biz",
+            "gender": "female",
+            "id": 2838,
+            "name": "Bhisham Khan DO",
+            "status": "active"
+        },
+        {
+            "email": "dubashi_harita@boyer-koepp.com",
+            "gender": "female",
+            "id": 2837,
+            "name": "Harita Dubashi",
+            "status": "active"
+        },
+        {
+            "email": "menon_darshwana@kertzmann.co",
+            "gender": "female",
+            "id": 2836,
+            "name": "Darshwana Menon",
+            "status": "inactive"
+        },
+        {
+            "email": "somayaji_bhavani@herzog.net",
+            "gender": "male",
+            "id": 2835,
+            "name": "Bhavani Somayaji",
+            "status": "inactive"
+        },
+        {
+            "email": "mehrotra_kalyani@cummerata-ondricka.com",
+            "gender": "male",
+            "id": 2834,
+            "name": "Kalyani Mehrotra",
+            "status": "active"
+        },
+        {
+            "email": "shantanu_miss_shukla@jones.org",
+            "gender": "male",
+            "id": 2833,
+            "name": "Miss Shantanu Shukla",
+            "status": "active"
+        }
+    ],
+    "meta": {
+        "pagination": {
+            "limit": 10,
+            "links": {
+                "current": "https://gorest.co.in/public/v1/users?page=1",
+                "next": "https://gorest.co.in/public/v1/users?page=2",
+                "previous": null
+            },
+            "page": 1,
+            "pages": 200,
+            "total": 1992
+        }
+    }
+}

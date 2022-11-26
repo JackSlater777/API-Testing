@@ -1,0 +1,9 @@
+{
+    "account_status": "ACTIVE",
+    "balance": 10,
+    "localize": {
+            "en": {"nickname":  "SolveMe", "countries": {"UA": 3}},
+            "ru": {"nickname":  "СолвМи"}
+    },
+    "avatar": "https://google.com"
+}

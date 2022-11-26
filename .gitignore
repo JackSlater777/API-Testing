@@ -1,8 +1,0 @@
-# Allure
-results/
-# Venv
-venv/
-# Idea
-.idea/
-# Pytest
-.pytest_cache/

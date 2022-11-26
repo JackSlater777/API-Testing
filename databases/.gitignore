@@ -1,0 +1,10 @@
+# Allure
+results/
+# Venv
+venv/
+# Idea
+.idea/
+# Pytest
+.pytest_cache/
+# init
+__init__.py
