@@ -1,4 +1,4 @@
-name: Code checks  # имя
+name: Docker build and push  # имя
 
 on:  # на какие события срабатывает pipeline
   push: # срабатывает на push...
@@ -9,11 +9,27 @@ on:  # на какие события срабатывает pipeline
 jobs:  # что будет выполнено, когда произойдет какое-либо событие, указанное выше
   build:
     runs-on: ubuntu-latest  # версия OS
+    env:
+      LOGIN: ${{ secrets.DOCKERHUB_USERNAME }}
+      NAME: ${{ secrets.DOCKERHUB_PASSWORD }}
+
     steps:
-      - uses: actions/checkout@v2  # создается образ репозитория, в котором будут выполнены дальнейшие шаги
+      #- name: Check out the repo
+      #  uses: actions/checkout@v2
+
+      - name: Login to docker.io  # Логинимся
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - uses: actions/checkout@master
+
       - name: Docker build  # Строим контейнер
-        run: |
-          docker build . -t automation-tests
-      - name: Docker run  # Прогоняем контейнер
-        run: |
-          docker run -t automation-tests
+        #run: |
+        #  docker build . -t automation-tests
+        run: docker build -t $LOGIN/$NAME:${GITHUB_REF:11} -f Dockerfile .
+#      - name: Docker run  # Прогоняем контейнер
+#        run: |
+#          docker run -t automation-tests
+      - name: Push image to docker.io  # Пушим в докер-репозиторий
+        run: docker push $LOGIN/$NAME:${GITHUB_REF:11}
+        # ${GITHUB_REF:11} — это переменная гитхаба, в которой хранится строка с референсом на событие по которому
+        # сработал триггер(название ветки, тэг и т.д.), если у нас тэги формата "v0.0.0" то необходимо обрезать первые
+        # 11 символов, тогда останется "0.0.0".
