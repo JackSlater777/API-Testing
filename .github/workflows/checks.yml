@@ -11,12 +11,6 @@ jobs:  # что будет выполнено, когда произойдет �
     runs-on: ubuntu-latest  # версия OS
     steps:
       - uses: actions/checkout@v2  # создается образ репозитория, в котором будут выполнены дальнейшие шаги
-      - name: Docker login
-        env:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-        run: |
-          docker login -u $username -p $password
       - name: Docker build  # Строим контейнер
         run: |
           docker build . -t automation-tests
