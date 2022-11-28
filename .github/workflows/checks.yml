@@ -40,9 +40,9 @@ jobs:
 #        run: |
 #          docker run -t automation-tests
 
-      - name: Build and push
+      - name: Build and push  # Строим и пушим контейнер в hub.docker
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
-          tags: user/app:latest
+          tags: user/automation-tests:latest
