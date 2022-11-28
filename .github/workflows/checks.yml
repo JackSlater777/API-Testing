@@ -45,5 +45,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: automation-tests:latest
+          #tags: automation-tests:latest  # Имя репозитория на hub.docker
+          tags: |
+            JackSlater777/API-Testing:${{ github.sha }}
+            JackSlater777/API-Testing:latest
           # JackSlater777/API-Testing
