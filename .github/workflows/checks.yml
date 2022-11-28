@@ -13,7 +13,7 @@ jobs:  # что будет выполнено, когда произойдет �
       - uses: actions/checkout@v3  # создается образ репозитория, в котором будут выполнены дальнейшие шаги
       - name: Docker build  # Строим контейнер
         run: |
-          docker build –t automation-tests .
+          docker build . automation-tests
       - name: Docker run  # Прогоняем контейнер
         run: |
           docker run automation-tests
