@@ -7,17 +7,19 @@ on:  # на какие события срабатывает pipeline
     branches: [ master ]  # ... в бранч master
 
 jobs:  # что будет выполнено, когда произойдет какое-либо событие, указанное выше
-  vm:  # блок для виртуальной машины
+  build:
     runs-on: ubuntu-latest  # версия OS
     steps:
       - uses: actions/checkout@v3  # создается образ репозитория, в котором будут выполнены дальнейшие шаги
+      - name: Docker login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Docker build  # Строим контейнер
         run: |
           docker build . -t automation-tests
-  container:  # блок для построенного контейнера
-    runs-on: ubuntu-latest  # версия OS
-    container: automation-tests
-    steps:
       - name: Docker run  # Прогоняем контейнер
         run: |
           docker run automation-tests
