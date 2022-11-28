@@ -27,3 +27,4 @@ jobs:
 #      - name: Docker run  # Прогоняем контейнер
 #        run: |
 #          docker run -t automation-tests
+
