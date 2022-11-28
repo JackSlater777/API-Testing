@@ -46,7 +46,7 @@ jobs:
           context: .
           push: true
           tags: |
-            automation-tests:${{ github.sha }}
-            automation-tests:latest
+            jackslater777/automation-tests:${{ github.sha }}
+            jackslater777/automation-tests:latest
 
 #            jackslater777/automation-tests:${{ github.sha }}
