@@ -13,7 +13,7 @@ jobs:
 #      LOGIN: ${{ secrets.DOCKERHUB_USERNAME }}
 #      NAME: ${{ secrets.DOCKERHUB_PASSWORD }}
 
-    steps:
+    steps:  #
       - uses: actions/checkout@v2
       - name: Docker build  # Строим контейнер
         run: |
