@@ -18,6 +18,6 @@ jobs:
       - name: Docker build  # Строим контейнер
         run: |
           docker build . -t automation-tests
-#      - name: Docker run  # Прогоняем контейнер
-#        run: |
-#          docker run -t automation-tests
+      - name: Docker run  # Прогоняем контейнер
+        run: |
+          docker run -t automation-tests
