@@ -9,9 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest  # версия OS
-#    env:
-#      LOGIN: ${{ secrets.DOCKERHUB_USERNAME }}
-#      NAME: ${{ secrets.DOCKERHUB_PASSWORD }}
+    env:
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      repository: ${{ secrets.DOCKERHUB_REPOSITORY }}
 
     steps:  #
 #      - name: Checkout
@@ -32,7 +33,8 @@ jobs:
 
       - name: Docker push  # Пушим контейнер
         run: |
-          docker push automation-tests
+#          docker push automation-tests
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_REPOSITORY }}:automation-tests
 
 #      - name: Docker run  # Прогоняем контейнер
 #        run: |
