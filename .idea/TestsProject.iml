@@ -17,7 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/databases/venv" />
       <excludeFolder url="file://$MODULE_DIR$/databases/tests/.pytest_cache" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (TestsProject) (3)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.10 (users)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

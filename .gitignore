@@ -1,0 +1,4 @@
+# Allure
+allureResults/
+# Pytest
+.pytest_cache/

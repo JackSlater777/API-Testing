@@ -1,5 +1,9 @@
+import os
+from definitions import ROOT_DIR
+
+
 SERVICE_URL = "https://gorest.co.in/public/v1/users"
 
-# Опциональные константы, используемые при создании директории с json-ответом от API
-FOLDER_PATH = r'C:\Users\Иван\PycharmProjects\TestsProject\users\src\jsons'
-JSON_PATH = r'C:\Users\Иван\PycharmProjects\TestsProject\users\src\jsons\response.json'
+JSON_RELATIVE_PATH = 'users/src/jsons/response.json'
+FOLDER_PATH = 'users/src/jsons'
+JSON_PATH = os.path.join(ROOT_DIR, JSON_RELATIVE_PATH)

@@ -14,3 +14,16 @@
 # Для отображения отчета в локальном сервере в браузере в командной строке в папке с проектом:
 # allure serve results
 
+# Собираем контейнер. Для этого в терминале выполняем:
+# docker build –t automation-tests .
+# Если докер-файл лежит не в корне, вместо точки пишем -f <путь/файл>
+# docker build -t automation-tests -f users/Dockerfile .
+# Для запуска контейнера выполняем:
+# docker run automation-tests
+
+# Эти 2 команды нужны, чтобы скопировать данные из контейнера и сгенерировать из результата репорт:
+# docker cp $(docker ps -a -q | head -1):/usr/lessons/allureResults .
+# allure serve allureResults/
+# Две команды ниже, помогут вам, чтобы почистить компьютер:
+# docker rm $(docker ps -a -q)
+# docker kill $(docker ps -q)

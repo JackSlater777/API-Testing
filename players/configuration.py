@@ -1,2 +1,6 @@
-# Опциональные константы, используемые при создании директории с json-ответом от API
-JSON_PATH = r'C:\Users\Иван\PycharmProjects\TestsProject\players\src\jsons\response.json'
+import os
+from definitions import ROOT_DIR
+
+
+JSON_RELATIVE_PATH = r'players\src\jsons\response.json'
+JSON_PATH = os.path.join(ROOT_DIR, JSON_RELATIVE_PATH)

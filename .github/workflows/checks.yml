@@ -1,0 +1,19 @@
+name: Code checks  # имя
+
+on:  # на какие события срабатывает pipeline
+  push: # срабатывает на push...
+    branches: [ master ]  # ... в бранч master
+  pull_request: # срабатывает на pull request...
+    branches: [ master ]  # ... в бранч master
+
+jobs:  # что будет выполнено, когда произойдет какое-либо событие, указанное выше
+  build:
+    runs-on: ubuntu-latest  # версия OS
+    steps:
+      - uses: actions/checkout@v3  # создается образ репозитория, в котором будут выполнены дальнейшие шаги
+      - name: Docker build  # Строим контейнер
+        run: |
+          docker build –t automation-tests .
+      - name: Docker run  # Прогоняем контейнер
+        run: |
+          docker run automation-tests

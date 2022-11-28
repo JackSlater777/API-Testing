@@ -1,0 +1,18 @@
+# Venv
+venv/
+# README
+*.md
+info.py
+# Idea
+.idea/
+# Pytest
+.pytest_cache/
+__pycache__
+# env-файлы
+env
+# Другие подпроекты
+computers/
+databases/
+players/
+# Allure
+allureResults/
