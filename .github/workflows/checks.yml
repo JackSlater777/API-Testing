@@ -1,12 +1,12 @@
 name: Docker build and push
 
-on:  # на какие события срабатывает pipeline
-  push: # срабатывает на push...
-    branches: [ master ]  # ... в бранч master
-  pull_request: # срабатывает на pull request...
-    branches: [ master ]  # ... в бранч master
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
-jobs:  # что будет выполнено, когда произойдет какое-либо событие, указанное выше
+jobs:
   build:
     runs-on: ubuntu-latest  # версия OS
     env:
