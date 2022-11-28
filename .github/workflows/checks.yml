@@ -16,8 +16,8 @@ jobs:  # что будет выполнено, когда произойдет �
         env:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          run: |
-            docker login -u $username -p $password
+        run: |
+          docker login -u $username -p $password
       - name: Docker build  # Строим контейнер
         run: |
           docker build . -t automation-tests
