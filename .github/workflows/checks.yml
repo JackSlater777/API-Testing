@@ -1,4 +1,4 @@
-name: Docker build and push  # имя
+name: Docker build and push
 
 on:  # на какие события срабатывает pipeline
   push: # срабатывает на push...
