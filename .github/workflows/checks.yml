@@ -13,14 +13,15 @@ jobs:  # что будет выполнено, когда произойдет �
       - uses: actions/checkout@v2  # создается образ репозитория, в котором будут выполнены дальнейшие шаги
       - name: Docker login
         uses: docker/login-action@v1
-        #env:
-        with:
+
+        #with:
+        env:
           #DOCKER_USER: ${{ secrets.DOCKER_USER }}
           username: ${{ secrets.DOCKER_USER }}
           #DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-        #run: |
-        #  docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Docker build  # Строим контейнер
         run: |
           docker build . -t automation-tests
