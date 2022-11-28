@@ -45,4 +45,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: user/automation-tests:latest
+          tags: automation-tests:latest
+          # JackSlater777/API-Testing
