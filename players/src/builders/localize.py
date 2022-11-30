@@ -12,7 +12,7 @@ class LocalizeBuilder(NestBuilder):
         self.reset()  # Сразу же наполняем объект значениями по умолчанию
 
     def set_nickname(self):
-        """Билдим никнейм игрока - по умолчанию ."""
+        """Билдим никнейм игрока."""
         self.result["nickname"] = Faker(self.lang).name()
         return self
 

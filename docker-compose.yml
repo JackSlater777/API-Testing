@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  test_runner:
+    build: .  # Создаем образ Dockerfile - т.е. выполняем docker build .
+    image: automation-tests  # Тег образа
+    container_name: automation-tests_works  # Имя контейнера
+#    environment:  # Установка переменных окружения. Можно этого не делать, т.к. это уже сделано в Dockerfile, но продублировать не лишне
+#      - ENV=dev
+#    volumes:  # Указываем, откуда на хост-машине брать тесты для запуска и куда класть внутри контейнера
+#      - .:/tests_project/
+
+# Для запуска:
+# docker-compose up --build
+# --build означает, что если образ существует, то его всё равно надо создать заново

@@ -1,11 +1,11 @@
 from databases.src.baseclasses import tables
-from databases.src.baseclasses.db import Session
+from databases.src.baseclasses.sessions import Session_postgres
 from sqlalchemy.sql.expression import desc  # Обратная сортировка
 
 
 if __name__ == '__main__':
     # Получаем соединение через session-экземпляр.
-    session = Session()
+    session = Session_postgres()
 
     # first() - возвращает только первый найденный результат
     result1 = session.query(tables.Films.film_id, tables.Films.title).first()
@@ -54,10 +54,10 @@ if __name__ == '__main__':
     ).all()
     print(result7)  # [('Тхэджон Ли Банвон',), ('Развод по-английски',), ('Дорога пробуждения',), ... ]
 
-    # ordered_by() - сортирует по параметру вывод результата от меньшего к большему
+    # order_by() - сортирует по параметру вывод результата от меньшего к большему
     result8 = session.query(
         tables.Films.film_id
-    ).ordered_by(
+    ).order_by(
         tables.Films.film_id
     ).all()
     print(result8)  # [(1,), (2,), (3,), (4,), (5,), (6,), (7,), (8,), (9,), (10,), ...]
@@ -66,7 +66,7 @@ if __name__ == '__main__':
     result9 = session.query(
         tables.Films.film_id,
         tables.Films.title
-    ).ordered_by(
+    ).order_by(
         desc(tables.Films.film_id)
     ).all()
     print(result9)  # [(193,), (192,), (191,), (190,), (189,), (188,), (187,), (186,), ...]
@@ -75,12 +75,12 @@ if __name__ == '__main__':
     result10 = session.query(
         tables.Films.film_id,
         tables.Films.title
-    ).ordered_by(tables.Films.film_id).limit(1).all()  # Вернет 1 ответ
+    ).order_by(tables.Films.film_id).limit(1).all()  # Вернет 1 ответ
     print(result10)  # [(193, 'Глубокое синее море')]
 
     # offset() - пропускает (skip) количество результатов
     result11 = session.query(
         tables.Films.film_id,
         tables.Films.title
-    ).ordered_by(tables.Films.film_id).limit(1).offset(1).all()
+    ).order_by(tables.Films.film_id).limit(1).offset(1).all()
     print(result11)  # [(192, 'Начальник разведки')]

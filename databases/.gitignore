@@ -8,3 +8,5 @@ venv/
 .pytest_cache/
 # init
 __init__.py
+# db
+test_db.db

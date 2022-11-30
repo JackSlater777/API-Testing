@@ -9,13 +9,19 @@ class ItemTypeBuilder(NestBuilder):
         self.result = {}  # Пустой словарь, который можно декодировать в json
         self.reset()  # Сразу же наполняем объект значениями по умолчанию
 
-    def set_item_type(self, item_type=Faker().word()):
-        """"""
+    def set_item_id(self, item_id=None):
+        """Билдим id - None, в базе данных стоит AUTOINCREMENT."""
+        self.result['item_id'] = item_id
+        return self
+
+    def set_item_type(self, item_type=Faker().first_name()):
+        """Билдим имя."""
         self.result['item_type'] = item_type
         return self
 
     def reset(self):
         """Задаем поля по умолчанию."""
+        self.set_item_id()
         self.set_item_type()
         return self
 
@@ -23,8 +29,8 @@ class ItemTypeBuilder(NestBuilder):
 if __name__ == '__main__':
     # Билдим item_type:
     item_type = ItemTypeBuilder().build()
-    print(f"{item_type=}")  # item_type={'item_type': 'fine'}
+    print(f"{item_type=}")  # item_type={'item_id': None, 'item_type': 'Robert'}
 
-    # Смотрим поля у сгенерированных игроков
+    # Смотрим поля
     item_type_keys = [key for key in ItemTypeBuilder().build()]
-    print(item_type_keys)  # ['item_type']
+    print(item_type_keys)  # ['item_id', 'item_type']

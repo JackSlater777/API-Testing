@@ -1,34 +1,106 @@
+import os
 import pytest
+from databases.configuration import DB_PATH
 from databases.src.baseclasses import tables
+from databases.src.builders.sqlite import configure_db, insert_dbapi, select_dbapi, update_dbapi, delete_dbapi, find_the_highest_id
+from databases.src.builders.orm import configure_orm, insert_orm, select_orm, update_orm, delete_orm
 
 
-class TestFilmsTable:
-    """Тестируем таблицу фильмов в базе данных."""
-    def test_films(self, get_db_session):
-        """Получаем данные о фильмах."""
-        data = get_db_session.query(tables.Films).first()  # Получаем первую match-запись из базы
-        print(data.film_id)  # Смотрим id фильма
-        print(data.title)  # Смотрим название фильма
+class TestItemTypeTableSQLite:
+    """Тестируем таблицу в базе данных SQLite через DB-API."""
+    def test_create_itemtype_table(self, get_sqlite_connect):
+        """Проверяем создание базы данных."""
+        configure_db(get_sqlite_connect)  # Передаем коннект в метод создания таблицы
+        assert os.path.exists(DB_PATH)
 
+    def test_build_and_insert_item(self, get_sqlite_connect, build_item_type):
+        """Проверяем добавление данных."""
+        item = build_item_type.build()  # Строим объект
+        insert_dbapi(get_sqlite_connect, item)  # Добавляем объект в базу
+        print(item['item_id'], item['item_type'])  # id остался None - недостаток DB-API
 
-class TestItemTypeTable:
-    """Тестируем кастомную таблицу в базе данных."""
-    def test_delete_data(self, get_db_session, delete_method):
+    def test_select_all_items(self, get_sqlite_connect):
+        """Проверяем чтение всех данных."""
+        print(select_dbapi(get_sqlite_connect))
+
+    def test_update_item(self, get_sqlite_connect):
+        """Проверяем обновление данных."""
+        item = {'item_id': 1, 'item_type': 'Robert'}  # Указываем обновленный объект, который должен быть
+        update_dbapi(get_sqlite_connect, item)  # Заменяем значение по id
+
+    def test_delete_item(self, get_sqlite_connect):
         """Проверяем удаление данных с кастомным фильтром."""
-        delete_method(  # Передаем...
-            get_db_session,  # ...сессию,...
-            tables.ItemType,  # ...таблицу, в которой нужно удалить данные...
-            (tables.ItemType.item_id == 3)  # ...и то, что нужно удалить.
-        )
+        item = {'item_id': 611}  # Указываем объект
+        delete_dbapi(get_sqlite_connect, item)  # Удаляем объект из базы
 
-    def test_add_data(self, build_and_add_item_type):
-        """Проверяем добавление построенного объекта."""
-        print(build_and_add_item_type)  # Смотрим сгенерированный id
+    def test_find_max_id(self, get_sqlite_connect):
+        """Проверяем максимальный id."""
+        print(find_the_highest_id(get_sqlite_connect)[0])  # max id
 
-    def test_add_and_delete_data(self, build_add_and_delete_item_type):
+    def test_build_insert_and_delete_item(self, get_sqlite_connect, build_item_type):
         """Пример идеального flow - создаём, добавляем и удаляем объект в базе,
         тем самым оставляя тест чистым."""
-        print(build_add_and_delete_item_type)  # Смотрим сгенерированный id, но в базе его уже не будет
+        item = build_item_type.build()  # Строим объект
+        insert_dbapi(get_sqlite_connect, item)  # Добавляем объект в базу
+        print(item)  # Смотрим id и имя, но в базе их уже не будет
+        item_id = find_the_highest_id(get_sqlite_connect)[0]  # Находим id добавленного объекта
+        item = {'item_id': item_id}  # Указываем объект
+        delete_dbapi(get_sqlite_connect, item)  # Удаляем объект из базы
+
+
+class TestItemTypeTableORM:
+    """Тестируем таблицу в базе данных SQLite через ORM SQLAlchemy."""
+    def test_create_itemtype_table(self):
+        """Проверяем создание базы данных."""
+        configure_orm()  # Передаем коннект в метод создания таблицы
+        assert os.path.exists(DB_PATH)
+
+    def test_build_and_insert_item(self, get_sqlite_session, build_item_type):
+        """Проверяем добавление данных."""
+        item = tables.ItemType(**build_item_type.build())  # Строим и декодим объект под модель ItemType
+        insert_orm(get_sqlite_session, item)  # Добавляем объект в базу
+        print(item.item_id, item.item_type)  # id изменился с None на max
+
+    def test_select_all_items(self, get_sqlite_session):
+        """Проверяем чтение всех данных c упорядочиванием по первичному ключу."""
+        items = select_orm(
+            get_sqlite_session,  # ...сессию,...
+            tables.ItemType,  # ...таблицу,...
+            (tables.ItemType.item_id > 0)  # ...и то, что нужно прочитать.
+        )
+        for item in items:
+            print(item.item_id, item.item_type)
+
+    def test_update_item(self, get_sqlite_session):
+        """Проверяем обновление данных."""
+        item = {'item_id': 1, 'item_type': 'Robert'}  # Указываем обновленный объект, который должен быть
+        update_orm(  # Передаем...
+            get_sqlite_session,  # ...сессию,...
+            tables.ItemType,  # ...таблицу,...
+            (tables.ItemType.item_id == item['item_id']),  # ...id объекта, который нужно изменить...
+            {tables.ItemType.item_type: item['item_type']}  # ...и новое значение, которое ему нужно подставить
+        )
+
+    def test_delete_item(self, get_sqlite_session):
+        """Проверяем удаление данных с кастомным фильтром."""
+        item_id = 611    # Указываем фильтр объекта
+        delete_orm(  # Передаем...
+            get_sqlite_session,  # ...сессию,...
+            tables.ItemType,  # ...таблицу,...
+            (tables.ItemType.item_id == item_id)  # ...и то, что нужно удалить.
+        )
+
+    def test_build_insert_and_delete_item(self, get_sqlite_session, build_item_type):
+        """Пример идеального flow - создаём, добавляем и удаляем объект в базе,
+        тем самым оставляя тест чистым."""
+        item = tables.ItemType(**build_item_type.build())  # Строим и декодим объект под модель ItemType
+        insert_orm(get_sqlite_session, item)  # Добавляем объект в базу
+        print(item.item_id, item.item_type)  # Смотрим id и имя, но в базе их уже не будет
+        delete_orm(  # Передаем...
+            get_sqlite_session,  # ...сессию,...
+            tables.ItemType,  # ...таблицу,...
+            (tables.ItemType.item_id == item.item_id)  # ...и то, что нужно удалить.
+        )
 
 
 if __name__ == '__main__':

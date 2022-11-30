@@ -28,7 +28,7 @@ class TestPlayersAdv:
         obj.validate(Player)  # Валидируем объект
         print(obj.get_parsed_item())  # Смотрим результат
 
-    @pytest.mark.parametrize("balance", ["", "0", "asd", [], tuple(), set(), {}])
+    @pytest.mark.parametrize("balance", ["", "0", "asd", [], tuple(), set(), {}], ids=str)
     def test_player_balance_negative(self, balance, build_player):
         """Негативный тест баланса игрока."""
         data = build_player.set_balance(balance).build()  # Генерируем игроков с разными балансами
