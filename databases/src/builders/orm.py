@@ -6,6 +6,11 @@ def configure_orm():
     Model.metadata.create_all(engine_sqlite)
 
 
+def clear_orm():
+    """Удаление схемы."""
+    Model.metadata.drop_all(engine_sqlite)
+
+
 def insert_orm(session, item):
     """Добавление записи."""
     session.add(item)

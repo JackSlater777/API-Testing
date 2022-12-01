@@ -22,8 +22,13 @@
 # docker run automation-tests
 
 # Эти 2 команды нужны, чтобы скопировать данные из контейнера и сгенерировать из результата репорт:
-# docker cp $(docker ps -a -q | head -1):/usr/lessons/allureResults .
+# Сначала узнаем id последнего сбилженного контейнера:
+# docker ps -lq
+# Копируем данные из контейнера...:
+# docker cp <вставить сюда id>:/allureResults .
+# ...и генерируем репорт:
 # allure serve allureResults/
-# Две команды ниже, помогут вам, чтобы почистить компьютер:
-# docker rm $(docker ps -a -q)
+# Для остановки работающего контейнера выполняем:
 # docker kill $(docker ps -q)
+# Для удаления списка контейнеров выполняем:
+# docker rm $(docker ps -a -q)

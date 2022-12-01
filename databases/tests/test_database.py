@@ -3,7 +3,7 @@ import pytest
 from databases.configuration import DB_PATH
 from databases.src.baseclasses import tables
 from databases.src.builders.sqlite import configure_db, insert_dbapi, select_dbapi, update_dbapi, delete_dbapi, find_the_highest_id
-from databases.src.builders.orm import configure_orm, insert_orm, select_orm, update_orm, delete_orm
+from databases.src.builders.orm import configure_orm, insert_orm, select_orm, update_orm, delete_orm, clear_orm
 
 
 class TestItemTypeTableSQLite:
@@ -101,6 +101,10 @@ class TestItemTypeTableORM:
             tables.ItemType,  # ...таблицу,...
             (tables.ItemType.item_id == item.item_id)  # ...и то, что нужно удалить.
         )
+
+    def test_delete_itemtype_table(self):
+        """Удаление таблицы ItemType."""
+        clear_orm()  # Передаем коннект в метод создания таблицы
 
 
 if __name__ == '__main__':
