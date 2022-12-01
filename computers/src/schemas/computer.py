@@ -6,7 +6,7 @@ from pydantic.networks import IPv4Address, IPv6Address  # Проверяет IP-
 from pydantic import HttpUrl  # Проверяет Url
 from pydantic import UUID4  # Проверяет UUID
 from pydantic.color import Color  # Проверяет цвет
-from src.enums.user_enums import Statuses
+from computers.src.enums.computer_enums import Statuses
 
 
 class Owners(BaseModel):

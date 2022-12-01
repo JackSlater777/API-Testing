@@ -1,6 +1,8 @@
 import pytest
 from users.src.schemas.user import User
 from pydantic import ValidationError
+from users.src.baseclasses.response_validator import ResponseValidator
+from users.src.baseclasses.object_validator import ObjectValidator
 
 
 class TestUsersClassic:
@@ -31,25 +33,32 @@ class TestUsersClassic:
 class TestUsers:
     """Тесты с прогоном объектов через специальные классы."""
     @pytest.mark.development
-    def test_status_code(self, get_data_from_response):
+    def test_status_code(self, response):
         """Проверяем статус-код."""
-        get_data_from_response.assert_status_code(200)
+        data = response.json().get("data")  # Конкретизируем данные под валидацию если необходимо - только data
+        obj = ResponseValidator(response, data)  # Скармливаем объект в класс
+        obj.assert_status_code(200)
 
     @pytest.mark.production
-    def test_response_validation(self, get_data_from_response):
+    def test_response_validation(self, response):
         """Парсим и валидируем запрос."""
-        get_data_from_response.validate(User)  # Валидируем объект
-        print(get_data_from_response.get_parsed_item())  # Смотрим результат
+        data = response.json().get("data")  # Конкретизируем данные под валидацию если необходимо - только data
+        obj = ResponseValidator(response, data)  # Скармливаем объект в класс
+        obj.validate(User)  # Валидируем объект
+        print(obj.get_parsed_item())  # Смотрим результат
 
     # @pytest.mark.skip('[ISSUE-2341]')
-    def test_json_validation(self, get_data_from_json):
+    def test_json_validation(self, decode_json):
         """Парсим и валидируем json."""
-        get_data_from_json.validate(User)  # Валидируем объект
-        print(get_data_from_json.get_parsed_item())  # Смотрим результат
+        obj = ObjectValidator(decode_json)  # Скармливаем объект в класс
+        obj.validate(User)  # Валидируем объект
+        print(obj.get_parsed_item())  # Смотрим результат
 
-    def test_user_count(self, get_data_from_response):
+    def test_user_count(self, response):
         """Проверяем длину словаря с данными."""
-        assert len(get_data_from_response.data) == 10
+        data = response.json().get("data")  # Конкретизируем данные под валидацию если необходимо - только data
+        obj = ResponseValidator(response, data)  # Скармливаем объект в класс
+        assert len(obj.data) == 10
 
 
 class TestUsersMock:

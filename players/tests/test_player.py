@@ -6,16 +6,31 @@ from players.src.builders.localize import LocalizeBuilder  # билдер вло
 from players.src.baseclasses.object_validator import ObjectValidator
 
 
-class TestPlayersAdv:
-    def test_json_validation(self, get_data_from_json):
-        """Проверяем валидацию json'a."""
-        get_data_from_json.validate(Player)  # Валидируем объект
-        print(get_data_from_json.get_parsed_item())  # Смотрим результат
+class TestPlayersClassic:
+    """Классические тесты без прогона объектов через специальные классы."""
+    def test_json_validation(self, decode_json):
+        """Парсим и валидируем json."""
+        Player.parse_obj(decode_json)  # Валидируем объект
 
     @pytest.mark.parametrize("status", Statuses.list())  # Аналог: [status.value for status in Statuses]
     def test_status_validation(self, status, build_player):
         """Проверяем статус игрока."""
-        data = build_player.set_status(status).build()  # Генерируем игроков с перечислениями статусов
+        data = build_player.set_status(status).build()  # Билдим игроков с перечислениями статусов
+        Player.parse_obj(data)  # Валидируем объект
+
+
+class TestPlayers:
+    """Тесты с прогоном объектов через специальные классы."""
+    def test_json_validation(self, decode_json):
+        """Парсим и валидируем json."""
+        obj = ObjectValidator(decode_json)  # Скармливаем объект в класс
+        obj.validate(Player)  # Валидируем объект
+        print(obj.get_parsed_item())  # Смотрим результат
+
+    @pytest.mark.parametrize("status", Statuses.list())  # Аналог: [status.value for status in Statuses]
+    def test_status_validation(self, status, build_player):
+        """Проверяем статус игрока."""
+        data = build_player.set_status(status).build()  # Билдим игроков с перечислениями статусов
         obj = ObjectValidator(data)  # Скармливаем ответ в класс
         obj.validate(Player)  # Валидируем объект
         print(obj.get_parsed_item())  # Смотрим результат

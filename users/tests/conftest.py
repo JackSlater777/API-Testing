@@ -3,8 +3,6 @@ import json
 import requests
 from unittest.mock import patch, MagicMock
 from users.configuration import JSON_PATH
-from users.src.baseclasses.response_validator import ResponseValidator
-from users.src.baseclasses.object_validator import ObjectValidator
 from users.configuration import SERVICE_URL
 
 
@@ -23,22 +21,6 @@ def decode_json():
         full_data = json.load(read_file)
     data = full_data.get("data")  # Конкретизируем данные под валидацию если необходимо - только data
     return data
-
-
-# # # Фикстуры для тестов с классами
-@pytest.fixture
-def get_data_from_response(response):
-    """Фикстура для прогона ответа через класс."""
-    data = response.json().get("data")  # Конкретизируем данные под валидацию если необходимо - только data
-    obj = ResponseValidator(response, data)  # Скармливаем объект в класс
-    return obj  # Возвращаем объект в тест
-
-
-@pytest.fixture
-def get_data_from_json(decode_json):
-    """Фикстура для прогона объекта через класс."""
-    obj = ObjectValidator(decode_json)  # Скармливаем объект в класс
-    return obj  # Возвращаем объект в тест
 
 
 # # # Фикстуры для тестов с моками
