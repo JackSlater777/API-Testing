@@ -1,0 +1,19 @@
+{
+  "jsonrpc": "2.0",
+  "id": "nb5839ef-7b8d-46aa-ae61-07bb1bsk4nh8_trial",
+  "method": "check_sync",
+  "params": {
+    "productOfferingId": "019344fb-bed8-4d52-96a1-ec7cf832b71f",
+    "clientInfo": {
+      "partyId": "be5e9228-5477-4d71-a405-8c228ceed70d",
+      "partyRoleId": "16f06990-ecc2-44d2-ab07-f930c9bf7c7",
+      "msisdn": "9995659494"
+    },
+    "productOfferingPrice":{
+      "id": "d27084c8-3273-460a-b0f2-9cd8ee34964e",
+      "productStatus": "ACTIVE_TRIAL",
+      "priceAlterations": []
+    },
+    "extra_param": {}
+  }
+}

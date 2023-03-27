@@ -5,3 +5,6 @@ allureResults/
 __pycache__
 # Idea
 .idea/
+# Mappings
+mappings
+__files
