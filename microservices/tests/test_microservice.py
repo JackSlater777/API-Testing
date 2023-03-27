@@ -5,6 +5,7 @@ from wiremock.client import *
 from microservices.configuration import BODIES_PATH, URL_V2, WIREMOCK_HOST
 from microservices.env_vars.clone import SSO_URL
 from microservices.mappings import local, proxying_to_google, vasp_checkpartner_417
+from microservices.resource import delete_mapping_by_scenario_name
 
 # pytest microservices/tests/test_microservice.py -s -v
 
@@ -12,21 +13,26 @@ from microservices.mappings import local, proxying_to_google, vasp_checkpartner_
 class TestItemTypeMicroservice:
     """Тестируем какой-нибудь тест сьют."""
 
-    @pytest.mark.skip
+    # @pytest.mark.skip
     def test_local(self, get_wiremock_server_session):
         """Тестируем тест кейс c локальным маппингом."""
         Mappings.create_mapping(mapping=local)  # Создаем мок
         response = requests.get(f'{WIREMOCK_HOST}/hello')  # Делаем запрос
-        print(f'\n{response}')  # <Response [407]>
-        print(response.text)  # Nobody is at home!
+        # print(f'\n{response}')  # <Response [407]>
+        # print(response.text)  # Nobody is at home!
+        assert response.status_code == 407
+        assert response.text == 'Nobody is at home!'
+        delete_mapping_by_scenario_name(local.get_json_data()['scenarioName'])  # Удаляем мок по имени
 
     @pytest.mark.skip
     def test_proxying_to_google(self, get_wiremock_server_session):
         """Тестируем тест кейс c переадресованием на google.com."""
         Mappings.create_mapping(mapping=proxying_to_google)  # Создаем мок
         response = requests.get(f'{WIREMOCK_HOST}/services')  # Делаем запрос
-        print(f'\n{response}')  # <Response [200]>
-        print(response.text)  # Код страницы
+        # print(f'\n{response}')  # <Response [200]>
+        # print(response.text)  # Код страницы
+        assert response.status_code == 200
+        delete_mapping_by_scenario_name(proxying_to_google.get_json_data()['scenarioName'])  # Удаляем мок по имени
 
     @pytest.mark.skip
     def test_get_417_from_vasp_v2(self, get_wiremock_server_session):
@@ -40,6 +46,7 @@ class TestItemTypeMicroservice:
         assert response.status_code == 200
         assert response.json()['result']['result_check_sync']['isAvailable'] is False
         assert response.json()['result']['result_check_sync']['productOfferingPrice']['productStatus'] == "ACTIVE_TRIAL"
+        delete_mapping_by_scenario_name(vasp_checkpartner_417.get_json_data()['scenarioName'])  # Удаляем мок по имени
 
 
 if __name__ == '__main__':

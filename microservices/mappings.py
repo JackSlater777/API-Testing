@@ -2,17 +2,18 @@ from wiremock.client import *
 
 
 local = Mapping(
+    scenarioName='local',
     request=MappingRequest(
         method=HttpMethods.GET,
         url='/hello'
     ),
     response=MappingResponse(
         status=407,
-        # bodyFileName='mapping_local.json'  # Путь до файла в папке __files
-        # headers={"Content-Type": "application/json"},
+        # bodyFileName='mapping_local.json',  # Путь до файла в папке __files
+        # headers={"Content-Type": "application/json"}
 
         # jsonBody={"body": "Nobody is at home!"},  # Боди в виде json'a
-        # headers={"Content-Type": "application/json"},
+        # headers={"Content-Type": "application/json"}
 
         body='Nobody is at home!',
         headers={"Content-Type": "text/plain"}
