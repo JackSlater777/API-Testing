@@ -11,11 +11,11 @@ BODIES_PATH = os.path.join(ROOT_DIR, 'microservices/tests/bodies')
 
 # Для тестов на локальном сервере
 LOCAL_WIREMOCK_PORT = 8080
-LOCAL_WIREMOCK_HOST = f'http://localhost:{LOCAL_WIREMOCK_PORT}'
+LOCAL_WIREMOCK_URL = f'http://localhost:{LOCAL_WIREMOCK_PORT}'
 
 # Для тестов на клоне
-# WIREMOCK_PORT = 8200
-# WIREMOCK_HOST = f'http://srv2-gf-app02:8200'
+WIREMOCK_PORT = 8081
+WIREMOCK_URL = f'http://srv3-amain-a.net.billing.ru:{WIREMOCK_PORT}'
 
 # Версии микросервиса
 URL = '/api/partner/uni-pmp/v1/call'

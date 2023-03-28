@@ -30,33 +30,33 @@ proxying_to_google = Mapping(
     )
 )
 
-vasp_checkpartner_417 = Mapping(
-    scenarioName='vasp_checkpartner_417',
-    request=MappingRequest(
-        method=HttpMethods.GET,
-        url='/eapi/cutemock-app/v1/api/cpapsm/api/cp/v1/checkpartner'
-    ),
-    response=MappingResponse(
-        status=417,
-        bodyFileName='vasp_checkpartner_417.json',  # Путь до файла в папке __files
-        headers={"Content-Type": "application/json"}
-    )
-)
-
 vasp_act = Mapping(
     scenarioName='vasp_act',
     request=MappingRequest(
         method=HttpMethods.GET,
-        url='/eapi/cutemock-app/v1/api/cpapsm/api/cp/v2/subscription'
+        url='/cpapsm/api/cp/v2/subscription?status=new'
     ),
     response=MappingResponse(
         status=200,
-        bodyFileName='vasp_act.json',  # Путь до файла в папке __files
+        jsonBody=None,
+        headers={"Content-Type": "application/json"}
+    )
+)
+
+vasp_checkpartner_417 = Mapping(
+    scenarioName='vasp_checkpartner_417',
+    request=MappingRequest(
+        method=HttpMethods.GET,
+        url='/cpapsm/api/cp/v1/checkpartner?msisdn=79202599494'
+    ),
+    response=MappingResponse(
+        status=417,
+        jsonBody=None,
         headers={"Content-Type": "application/json"}
     )
 )
 
 
 if __name__ == "__main__":
-    print(local.get_json_data())  # Конвертируем мок в python-объект
-    print(local.to_json())  # Конвертируем мок в json
+    print(vasp_act.get_json_data())  # Конвертируем мок в python-объект
+    print(vasp_act.to_json())  # Конвертируем мок в json
