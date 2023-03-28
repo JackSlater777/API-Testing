@@ -1,0 +1,17 @@
+[
+  {
+    "jsonrpc": "2.0",
+    "id": "e0b1193c-8d37-45aa-b233-34dea8d603118_activate",
+    "method": "activate",
+    "params": {
+      "extra_params": null,
+      "channel": null,
+      "productOfferingId": "start_try",
+      "clientInfo": {
+        "partyId": "7ad36537-eb12-4a12-8ac6-9fe9562eed8b",
+        "partyRoleId": "a3be0e17-ac45-4384-af50-e552e0fb124d",
+        "msisdn": "9370364577"
+      }
+    }
+  }
+]

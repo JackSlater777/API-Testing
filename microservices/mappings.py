@@ -31,6 +31,7 @@ proxying_to_google = Mapping(
 )
 
 vasp_checkpartner_417 = Mapping(
+    scenarioName='vasp_checkpartner_417',
     request=MappingRequest(
         method=HttpMethods.GET,
         url='/eapi/cutemock-app/v1/api/cpapsm/api/cp/v1/checkpartner'
@@ -38,6 +39,19 @@ vasp_checkpartner_417 = Mapping(
     response=MappingResponse(
         status=417,
         bodyFileName='vasp_checkpartner_417.json',  # Путь до файла в папке __files
+        headers={"Content-Type": "application/json"}
+    )
+)
+
+vasp_act = Mapping(
+    scenarioName='vasp_act',
+    request=MappingRequest(
+        method=HttpMethods.GET,
+        url='/eapi/cutemock-app/v1/api/cpapsm/api/cp/v2/subscription'
+    ),
+    response=MappingResponse(
+        status=200,
+        bodyFileName='vasp_act.json',  # Путь до файла в папке __files
         headers={"Content-Type": "application/json"}
     )
 )
