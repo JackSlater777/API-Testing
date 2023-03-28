@@ -1,0 +1,18 @@
+{
+  "response_status": 200,
+  "params": {
+    "status": "new"
+  },
+  "response_cookies": null,
+  "tag": "vasp_act",
+  "path": "/eapi/cutemock-app/v1/api/cpapsm/api/cp/v2/subscription",
+  "method": "GET",
+  "request_body": null,
+  "response_timeout": null,
+  "response_body": null,
+  "request_headers": null,
+  "response_headers": {
+    "Content-Type": "application/json"
+  },
+  "request_cookies": null
+}
